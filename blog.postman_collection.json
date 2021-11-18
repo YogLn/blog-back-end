@@ -1,0 +1,792 @@
+{
+	"info": {
+		"_postman_id": "0202c312-d02d-4d41-b8f8-6fd4c1c367f8",
+		"name": "blog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "注册请求",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"swag\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登录接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json()\r",
+									"pm.globals.set(\"token\", res.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"yogln\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "授权测试",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/test",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取头像",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/5/avatar",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"5",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "文章",
+			"item": [
+				{
+					"name": "发表文章",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Vue笔记\",\r\n    \"titleImg\": \"\",\r\n    \"description\": \"Vue笔记\",\r\n    \"content\": \"Vue笔记\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取文章列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article?offset=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取具体文章信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article/24",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改文章内容",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"abcde\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article/24",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除文章",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article/24",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给文章添加标签",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"labels\": [\"vue\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article/26/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"26",
+								"label"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "评论",
+			"item": [
+				{
+					"name": "添加评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"articleId\": \"25\",\r\n    \"content\": \"我只是一条评论~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/comment",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "回复评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"articleId\": \"25\",\r\n    \"content\": \"我也是一条评论~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/comment/12/reply",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment",
+								"12",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除评论",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/comment/9",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取评论列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/comment?articleId=25",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "articleId",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "标签",
+			"item": [
+				{
+					"name": "添加标签",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"前端\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取标签列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除标签",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/label/13",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"label",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "文件",
+			"item": [
+				{
+					"name": "上传头像",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/D:/OneDrive/图片/本机照片/avatar.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/upload/avatar",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"upload",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "照片墙",
+			"item": [
+				{
+					"name": "上传图片",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imgUrl\": \"https://i.loli.net/2021/11/17/8FakUGMJ3cdjmSR.png\",\r\n    \"desc\": \"再次上传测试~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/photo",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除照片",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/photo/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"photo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取图片列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/photo?offset=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"photo"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "留言板",
+			"item": [
+				{
+					"name": "添加留言",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"第三条留言\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/message",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取留言列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/message?offset=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"message"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除留言",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/message/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"message",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改留言",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"我是修改后的留言\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/message/4",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"message",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
