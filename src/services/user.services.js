@@ -31,6 +31,12 @@ class UserService {
     const result = await connection.execute(statement, [userId])
     return result[0]
   }
+
+  async getUserInfoById(id) {
+    const statement = `SELECT * FROM user WHERE id = ?;`
+    const result = await connection.execute(statement, [id])
+    return result[0]
+  }
 }
 
 module.exports = new UserService()

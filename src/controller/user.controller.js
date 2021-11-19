@@ -28,6 +28,12 @@ class UserController {
 		const result = await service.deleteUserById(userId)
 		ctx.body = result
 	}
+
+	async detail(ctx, next) {
+		const { userId } = ctx.params
+		const result = await service.getUserInfoById(userId)
+		ctx.body = result
+	}
 }
 
 module.exports = new UserController()
