@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 18/11/2021 14:46:33
+ Date: 21/11/2021 16:32:27
 */
 
 SET NAMES utf8mb4;
@@ -23,20 +23,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `titleImg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `content` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `titleImg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `description` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of article
--- ----------------------------
-INSERT INTO `article` VALUES (25, 'react笔记', '', 'react的笔记', 'react新增特性', '2021-11-17 15:09:00', '2021-11-17 15:09:00');
-INSERT INTO `article` VALUES (26, 'Vue笔记', '', 'Vue笔记', 'Vue笔记', '2021-11-17 20:54:54', '2021-11-17 20:54:54');
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for article_label
@@ -54,12 +48,6 @@ CREATE TABLE `article_label`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of article_label
--- ----------------------------
-INSERT INTO `article_label` VALUES (25, 10, '2021-11-17 20:06:05', '2021-11-17 20:06:05');
-INSERT INTO `article_label` VALUES (25, 12, '2021-11-17 20:06:05', '2021-11-17 20:06:05');
-
--- ----------------------------
 -- Table structure for avatar
 -- ----------------------------
 DROP TABLE IF EXISTS `avatar`;
@@ -75,13 +63,7 @@ CREATE TABLE `avatar`  (
   UNIQUE INDEX `filename`(`filename`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `avatar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of avatar
--- ----------------------------
-INSERT INTO `avatar` VALUES (5, '1da66ca5f7576d40cc8d9fbffc8636d8', 'image/jpeg', 6687, 5, '2021-11-17 22:38:11', '2021-11-17 22:38:11');
-INSERT INTO `avatar` VALUES (6, 'ed29ef96881d81932812e2e51eda3890', 'image/jpeg', 6687, 5, '2021-11-18 14:24:19', '2021-11-18 14:24:19');
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for comment
@@ -102,14 +84,7 @@ CREATE TABLE `comment`  (
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of comment
--- ----------------------------
-INSERT INTO `comment` VALUES (11, '嗯嗯嗯', 25, 5, NULL, '2021-11-17 16:51:45', '2021-11-17 16:51:45');
-INSERT INTO `comment` VALUES (12, '我只是一条评论~', 25, 5, NULL, '2021-11-17 16:52:02', '2021-11-17 16:52:02');
-INSERT INTO `comment` VALUES (13, '我也是一条评论~', 25, 6, 12, '2021-11-17 17:00:06', '2021-11-17 17:00:06');
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for label
@@ -122,14 +97,7 @@ CREATE TABLE `label`  (
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of label
--- ----------------------------
-INSERT INTO `label` VALUES (10, 'Vue', '2021-11-17 17:35:27', '2021-11-17 17:35:50');
-INSERT INTO `label` VALUES (11, 'React', '2021-11-17 17:35:44', '2021-11-17 17:35:44');
-INSERT INTO `label` VALUES (12, 'JavaScript', '2021-11-17 19:18:02', '2021-11-17 19:18:02');
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for message
@@ -143,13 +111,7 @@ CREATE TABLE `message`  (
   `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of message
--- ----------------------------
-INSERT INTO `message` VALUES (1, 'yogln', 5, '第一条留言', '2021-11-18 14:05:48', '2021-11-18 14:05:48');
-INSERT INTO `message` VALUES (4, 'yogln', 5, '我是修改后的留言', '2021-11-18 14:39:32', '2021-11-18 14:39:32');
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for photo
@@ -162,14 +124,7 @@ CREATE TABLE `photo`  (
   `createAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of photo
--- ----------------------------
-INSERT INTO `photo` VALUES (2, 'https://i.loli.net/2021/11/17/8FakUGMJ3cdjmSR.png', '再次上传测试~', '2021-11-17 23:15:23', '2021-11-17 23:15:23');
-INSERT INTO `photo` VALUES (3, 'https://i.loli.net/2021/11/17/8FakUGMJ3cdjmSR.png', '再次上传测试~', '2021-11-18 11:11:59', '2021-11-18 11:11:59');
-INSERT INTO `photo` VALUES (4, 'https://i.loli.net/2021/11/17/8FakUGMJ3cdjmSR.png', '再次上传测试~', '2021-11-18 11:14:30', '2021-11-18 11:14:30');
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
@@ -184,12 +139,6 @@ CREATE TABLE `user`  (
   `avatar_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES (5, 'yogln', 'e10adc3949ba59abbe56e057f20f883e', '2021-11-16 17:46:23', '2021-11-17 22:38:12', 'http://localhost:5000/users/5/avatar');
-INSERT INTO `user` VALUES (6, 'swag', 'e10adc3949ba59abbe56e057f20f883e', '2021-11-17 16:32:51', '2021-11-17 16:32:51', NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -7,6 +7,6 @@ const { create, remove, list } = require('../controller/photo.controller')
 
 photoRouter.post('/', verifyAuth, create)
 photoRouter.get('/', list)
-photoRouter.delete('/:photoId', verifyAuth, remove)
+photoRouter.delete('/:photoId', remove)
 
 module.exports = photoRouter

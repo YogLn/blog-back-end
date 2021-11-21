@@ -21,7 +21,7 @@ class UserService {
   }
 
   async getUsersList(offset, size) {
-    const statement = `SELECT * FROM user limit ?, ?;`
+    const statement = `SELECT *, (SELECT count(*) from user) total FROM user limit ?, ?;`
     const result = await connection.execute(statement, [offset, size]);
     return result[0]
   }

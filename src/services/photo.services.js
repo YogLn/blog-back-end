@@ -14,7 +14,7 @@ class PhotoService {
 	}
 
 	async list(offset, limit) {
-		const statement = `select * from photo ORDER BY id DESC limit ?, ?;`
+		const statement = `select *, (select count(*) from photo) total from photo ORDER BY id DESC limit ?, ?;`
 		const result = await connection.execute(statement, [offset, limit])
 		return result[0]
 	}

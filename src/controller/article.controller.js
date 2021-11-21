@@ -21,8 +21,8 @@ class ArticleController {
 
   async update(ctx, next) {
     const { articleId } = ctx.params
-    const { content } = ctx.request.body
-    const result = await service.update(articleId, content)
+    const { title, titleImg, description,content } = ctx.request.body
+    const result = await service.update(articleId, title, titleImg, description,content)
     ctx.body = result
   }
 
@@ -35,7 +35,6 @@ class ArticleController {
   async addLabels(ctx, next) {
     const { labels } = ctx
     const { articleId } = ctx.params
-
     for (const label of labels) {
       // 判断标签是否已经和动态有关系
       const isExist = await service.hasLabel(articleId, label.id);
@@ -44,6 +43,21 @@ class ArticleController {
       }
     }
     ctx.body = '添加标签成功~'
+  }
+
+  async updateLabels(ctx, next) {
+    const { labels } = ctx
+    const { articleId } = ctx.params
+    // 删除标签
+    await service.deleteLabel(articleId)
+    for (const label of labels) {
+      // 判断标签是否已经和动态有关系
+      const isExist = await service.hasLabel(articleId, label.id);
+      if(!isExist) {
+        await service.addLabel(articleId, label.id)
+      }
+    }
+    ctx.body = '修改标签成功~'
   }
 }
 

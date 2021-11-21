@@ -21,14 +21,15 @@ class CommentService{
 
 	async getCommentListByArticleId(articleId) {
 		const statement = `SELECT m.id, m.content, m.comment_id commentId, m.createAt createTime,
-												 JSON_OBJECT( 'id', u.id, 'name', u.NAME ) USER 
+													(select count(*) from comment where comment.article_id = ?) total,
+												 JSON_OBJECT( 'id', u.id, 'name', u.NAME, 'avatarUrl', u.avatar_url) user 
 											 FROM
 											 	 COMMENT m
 											 	 LEFT JOIN USER u ON u.id = m.user_id 
 										 	 WHERE
 											 	 article_id = ?;`
 
-		const result = await connection.execute(statement, [articleId])
+		const result = await connection.execute(statement, [articleId,articleId])
 		return result[0]
 	}
 }

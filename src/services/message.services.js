@@ -9,6 +9,7 @@ class MessageServices {
 
 	async getMsgList(offset, size) {
 		const statement = `select m.id id, m.content content, m.createAt createAt, 
+											(select COUNT(*) from message) total,
 												JSON_OBJECT('username', m.username, 'avatar', u.avatar_url) user
 											from message m
 											left join user u on u.id = m.user_id

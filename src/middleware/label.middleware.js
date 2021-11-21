@@ -19,7 +19,6 @@ const verifyLabelExists = async (ctx, next) => {
 		newLabels.push(label)
 	}
 	ctx.labels = newLabels
-	console.log(newLabels)
 	await next()
 }
 
