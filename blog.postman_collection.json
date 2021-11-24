@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"swag\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -138,6 +138,81 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "获取用户列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users?offset=0&size=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除用户",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/7",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取用户详情",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -161,7 +236,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Vue笔记\",\r\n    \"titleImg\": \"\",\r\n    \"description\": \"Vue笔记\",\r\n    \"content\": \"Vue笔记\"\r\n}",
+							"raw": "{\r\n    \"title\": \"网易云\",\r\n    \"titleImg\": \"\",\r\n    \"description\": \"网易云\",\r\n    \"content\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,13 +288,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/article/24",
+							"raw": "{{baseURL}}/article/25",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"article",
-								"24"
+								"25"
 							]
 						}
 					},
@@ -242,7 +317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"abcde\"\r\n}",
+							"raw": "{\r\n    \"title\": \"title\",\r\n    \"titleImg\": \"titleImg\",\r\n    \"description\": \"description\",\r\n    \"content\": \"content\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,13 +325,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/article/24",
+							"raw": "{{baseURL}}/article/39",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"article",
-								"24"
+								"39"
 							]
 						}
 					},
@@ -308,6 +383,44 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"labels\": [\"vue\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/article/26/label",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"26",
+								"label"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改文章标签",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"labels\": [\"react\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -441,18 +554,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/comment?articleId=25",
+							"raw": "{{baseURL}}/comment/25",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"comment"
-							],
-							"query": [
-								{
-									"key": "articleId",
-									"value": "25"
-								}
+								"comment",
+								"25"
 							]
 						}
 					},
@@ -480,7 +588,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"前端\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Node\",\r\n    \"color\": \"#dbd451\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

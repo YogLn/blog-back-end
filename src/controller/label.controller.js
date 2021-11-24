@@ -2,8 +2,8 @@ const service = require('../services/label.services')
 
 class LabelController {
 	async create(ctx, next) {
-		const { name } = ctx.request.body
-		const result = await service.create(name);
+		const { name, color } = ctx.request.body
+		const result = await service.create(name, color);
 		ctx.body = result
 	}
 

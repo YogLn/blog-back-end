@@ -1,9 +1,9 @@
 const connection = require('../app/database')
 
 class LabelService {
-	async create (name) {
-		const statement = `insert into label (name) values (?);`
-		const result = await connection.execute(statement, [name])
+	async create (name, color) {
+		const statement = `insert into label (name, color) values (?, ?);`
+		const result = await connection.execute(statement, [name, color])
 		return result[0]
 	}
 
@@ -15,7 +15,7 @@ class LabelService {
 
 	async getLabelList() {
 		const statement = `SELECT 
-		l.id labelId, l.name labelName, COUNT(a.id) total
+		l.id labelId, l.name labelName, l.color color, COUNT(a.id) total
 			FROM label l
 		LEFT JOIN article_label al
 		ON l.id = al.label_id
