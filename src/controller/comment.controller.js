@@ -20,9 +20,22 @@ class CommentController {
 		const result = await service.remove(commentId)
 		ctx.body = result
 	}
+
 	async list(ctx, next) {
 		const { articleId } = ctx.params
 		const result = await service.getCommentListByArticleId(articleId)
+		ctx.body = result
+	}
+
+	async like(ctx, next) {
+		const { commentId } = ctx.params
+		const result = await service.likeComment(commentId)
+		ctx.body = result
+	}
+
+	async dislike(ctx, next) {
+		const { commentId } = ctx.params
+		const result = await service.disLikeComment(commentId)
 		ctx.body = result
 	}
 }

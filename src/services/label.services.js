@@ -31,5 +31,6 @@ class LabelService {
 		const result = await connection.execute(statement, [id]);
 		return result[0]
 	}
+
 }
 module.exports = new LabelService()

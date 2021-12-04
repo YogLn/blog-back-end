@@ -17,8 +17,12 @@ const verifyUser = async (ctx, next) => {
 	// 3.判断用户是否注册过
 	const result = await service.getUserByName(name)
 	if(result.length) {
-		const error = new Error(errorTypes.USER_ALREADY_EXISTS)
-		return ctx.app.emit('error', error, ctx)
+		return ctx.body = {
+			status: 409,
+			message: '用户名已经存在~'
+		}
+		// const error = new Error(errorTypes.USER_ALREADY_EXISTS)
+		// return ctx.app.emit('error', error, ctx)
 	}
 
 	await next()

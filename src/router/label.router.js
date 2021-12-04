@@ -11,7 +11,7 @@ const {
   list,
   remove
 } = require('../controller/label.controller')
-
+ 
 labelRouter.post('/', verifyAuth, create)
 labelRouter.get('/', list)
 labelRouter.delete('/:labelId', remove)

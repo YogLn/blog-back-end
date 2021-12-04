@@ -22,14 +22,25 @@ class CommentService{
 	async getCommentListByArticleId(articleId) {
 		const statement = `SELECT m.id, m.content, m.comment_id commentId, m.createAt createTime,
 													(select count(*) from comment where comment.article_id = ?) total,
-												 JSON_OBJECT( 'id', u.id, 'name', u.NAME, 'avatarUrl', u.avatar_url) user 
-											 FROM
-											 	 COMMENT m
-											 	 LEFT JOIN USER u ON u.id = m.user_id 
-										 	 WHERE
-											 	 article_id = ?;`
-
+												JSON_OBJECT( 'id', u.id, 'name', u.name, 'avatarUrl', u.avatar_url) user 
+											FROM
+													comment m
+													LEFT JOIN user u ON u.id = m.user_id 
+												WHERE
+													article_id = ?;`
 		const result = await connection.execute(statement, [articleId,articleId])
+		return result[0]
+	}
+
+	async likeComment(id) {
+		const statement = `update comment set like_num = (like_num + 1) where id = ?;`
+		const result = await connection.execute(statement, [id])
+		return result[0]
+	}
+
+	async disLikeComment(id) {
+		const statement = `update comment set dislike_num = (dislike_num + 1) where id = ?;`
+		const result = await connection.execute(statement, [id])
 		return result[0]
 	}
 }

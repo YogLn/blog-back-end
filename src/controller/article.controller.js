@@ -59,6 +59,12 @@ class ArticleController {
     }
     ctx.body = '修改标签成功~'
   }
+
+  async getListWithInfo(ctx, next) {
+    const { name } = ctx.request.body
+    const result = await service.getListByInfo(name)
+    ctx.body = result
+  }
 }
 
 module.exports = new ArticleController()

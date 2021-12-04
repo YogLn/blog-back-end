@@ -32,7 +32,8 @@ class ArticleService {
   }
 
   async getArticleDetailsById(id) {
-    const statement = `
+    const statement1 = `update article set viewTimes = (viewTimes+1) where id = ?;`
+    const statement2 = `
 				SELECT
 				a.id id,
 				a.title title,
@@ -50,16 +51,23 @@ class ArticleService {
 			GROUP BY a.id;
 			`
     try {
-      const result = await connection.execute(statement, [id])
+      await connection.execute(statement1, [id])
+      const result = await connection.execute(statement2, [id])
       return result[0]
     } catch (error) {
       console.log(error)
     }
   }
 
-  async update(id, title, titleImg, description,content) {
+  async update(id, title, titleImg, description, content) {
     const statement = `update article set title=?,titleImg=?, description=?, content=? where id=?;`
-    const result = await connection.execute(statement, [title, titleImg, description ,content, id])
+    const result = await connection.execute(statement, [
+      title,
+      titleImg,
+      description,
+      content,
+      id
+    ])
     return result[0]
   }
 
@@ -85,6 +93,16 @@ class ArticleService {
     const statement = `delete from article_label where article_id = ?;`
     const result = await connection.execute(statement, [articleId])
     return result[0]
+  }
+
+  async getListByInfo(name) {
+    try {
+      const statement = `SELECT * FROM article WHERE title or description LIKE ?`;
+      const result = await connection.execute(statement, [`%${name}%`])
+      return result[0]
+    } catch (error) {
+      console.log(err)
+    }
   }
 }
 
