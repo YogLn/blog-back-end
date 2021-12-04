@@ -41,7 +41,7 @@ class ArticleService {
 				a.description description,
 				a.content content,
 			IF
-				( COUNT( l.id ), JSON_ARRAYAGG( JSON_OBJECT( 'id', l.id, 'name', l.NAME, 'color', l.color )), NULL ) labels 
+				( COUNT( l.id ), JSON_ARRAYAGG( JSON_OBJECT( 'id', l.id, 'name', l.NAME )), NULL ) labels 
 			FROM
 				article a
 				LEFT JOIN article_label al ON a.id = al.article_id
