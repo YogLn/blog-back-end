@@ -15,8 +15,13 @@ class ArticleController {
 
   async detail(ctx, next) {
     const { articleId } = ctx.params
-    const result = await service.getArticleDetailsById(articleId)
-    ctx.body = result
+    if (articleId === 'hot') {
+      const result = await service.getHotList()
+      ctx.body = result
+    } else {
+      const result = await service.getArticleDetailsById(articleId)
+      ctx.body = result
+    }
   }
 
   async update(ctx, next) {
