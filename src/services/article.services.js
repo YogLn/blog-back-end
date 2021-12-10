@@ -14,18 +14,19 @@ class ArticleService {
 
   async getArticleList(offset, size) {
     const statement = `
-		SELECT 
-			a.id id,a.title title, a.titleImg titleImg, a.description description, a.createAt createTime, a.updateAt updateTime,
+    SELECT 
+      a.id id,a.title title, a.titleImg titleImg, a.description description, a.viewTimes viewTimes, a.createAt createTime, a.updateAt updateTime,
       (SELECT count(*) from article) total,
-			IF(COUNT(l.id), JSON_ARRAYAGG(JSON_OBJECT('id', l.id, 'name', l.name)), NULL) labels
-		FROM article a
-			LEFT JOIN article_label al
-			ON a.id = al.article_id
-			LEFT JOIN label l
-			ON al.label_id = l.id 
-		GROUP BY a.id
-		ORDER BY id desc
-		limit ?, ?
+      (SELECT count(*) from comment c where c.article_id=a.id ) commentNum,
+      IF(COUNT(l.id), JSON_ARRAYAGG(JSON_OBJECT('id', l.id, 'name', l.name, 'color', l.color)), NULL) labels
+    FROM article a
+      LEFT JOIN article_label al
+      ON a.id = al.article_id
+      LEFT JOIN label l
+      ON al.label_id = l.id 
+    GROUP BY a.id
+    ORDER BY id desc
+    limit ?, ?
 		`
     const result = await connection.execute(statement, [offset, size])
     return result[0]
@@ -40,6 +41,7 @@ class ArticleService {
 				a.titleImg titleImg,
 				a.description description,
 				a.content content,
+        (select count(*) from comment c where c.id = a.id) commmentNum,
 			IF
 				( COUNT( l.id ), JSON_ARRAYAGG( JSON_OBJECT( 'id', l.id, 'name', l.NAME, 'color', l.color )), NULL ) labels 
 			FROM
@@ -99,6 +101,16 @@ class ArticleService {
     try {
       const statement = `SELECT * FROM article WHERE title or description LIKE ?`;
       const result = await connection.execute(statement, [`%${name}%`])
+      return result[0]
+    } catch (error) {
+      console.log(err)
+    }
+  }
+    
+  async getHotList() {
+    try {
+      const statement = `select * from article ORDER BY viewTimes desc limit 5`;
+      const result = await connection.execute(statement)
       return result[0]
     } catch (error) {
       console.log(err)
