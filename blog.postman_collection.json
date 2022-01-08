@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Coco\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"name\": \"yogln\",\r\n    \"password\": \"53406@Abc\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,7 +261,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/article?offset=0&size=10",
+							"raw": "{{baseURL}}/article?offset=0&size=5",
 							"host": [
 								"{{baseURL}}"
 							],
@@ -275,7 +275,7 @@
 								},
 								{
 									"key": "size",
-									"value": "10"
+									"value": "5"
 								}
 							]
 						}
@@ -288,13 +288,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/article/25",
+							"raw": "{{baseURL}}/article/42",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"article",
-								"25"
+								"42"
 							]
 						}
 					},
@@ -467,6 +467,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "热门文章",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/article/hot",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"article",
+								"hot"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -609,6 +627,25 @@
 						"method": "POST",
 						"header": [],
 						"url": {
+							"raw": "{{baseURL}}/comment/11/like",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"comment",
+								"11",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "踩",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
 							"raw": "{{baseURL}}/comment/11/dislike",
 							"host": [
 								"{{baseURL}}"
@@ -704,13 +741,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/label/vue",
+							"raw": "{{baseURL}}/label/react?offset=0&size=10",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"label",
-								"vue"
+								"react"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
 							]
 						}
 					},
@@ -754,6 +801,44 @@
 							"path": [
 								"upload",
 								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上传头像2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"avatarUrl\": \"https:blog-1304388092.cos.ap-chengdu.myqcloud.com/img%20%289%29.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/avatar/6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"avatar",
+								"6"
 							]
 						}
 					},
@@ -854,6 +939,80 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "上传图片2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/OneDrive/图片/本机照片/avatar.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/photo",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"photo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改照片",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"desc\":\"修改测试\",\r\n    \"imgUrl\":\"https://i.loli.net/2021/11/17/8FakUGMJ3cdjmSR.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/photo/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"photo",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -877,7 +1036,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"我犯了什么罪？\"\r\n}",
+							"raw": "{\r\n    \"content\": \"我是第二个！！！\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -963,6 +1122,220 @@
 							"path": [
 								"message",
 								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "归档",
+			"item": [
+				{
+					"name": "创建归档",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"添加评论回复功能\",\r\n    \"image\": \"https://blog-1304388092.cos.ap-chengdu.myqcloud.com/blog/img%20(1).png\",\r\n    \"content\": \"添加评论回复功能\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/archive",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取归档列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/archive",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改归档",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"初始化博客\",\r\n    \"image\": \"https://blog-1304388092.cos.ap-chengdu.myqcloud.com/blog/img%20(1).png\",\r\n    \"content\": \"初始化博客\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/archive/6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"archive",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除归档",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/archive/6",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"archive",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "音乐",
+			"item": [
+				{
+					"name": "添加音乐",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"霜雪千年\",\r\n    \"artist\": \"萧忆情Alex\",\r\n    \"url\": \"https://music.163.com/song/media/outer/url?id=36496389.mp3\",\r\n    \"cover\": \"https://p2.music.126.net/cpoUinrExafBHL5Nv5iDHQ==/109951166361218466.jpg\",\r\n    \"lrc\": \"http://123.207.32.32:9001/lyric?id=36496389\",\r\n    \"theme\": \"#090913\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/music",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"music"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/music",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"music"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "歌曲详情",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/music/9",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"music",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改歌曲信息",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"霜雪千年aaa\",\r\n    \"artist\": \"萧忆情Alex\",\r\n    \"url\": \"https://music.163.com/song/media/outer/url?id=36496389.mp3\",\r\n    \"cover\": \"https://p2.music.126.net/cpoUinrExafBHL5Nv5iDHQ==/109951166361218466.jpg\",\r\n    \"lrc\": \"http://123.207.32.32:9001/lyric?id=36496389\",\r\n    \"theme\": \"#090913\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/music/10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"music",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除歌曲",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/music/10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"music",
+								"10"
 							]
 						}
 					},

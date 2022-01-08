@@ -18,6 +18,11 @@ class PhotoService {
 		const result = await connection.execute(statement, [offset, limit])
 		return result[0]
 	}
+	async update(imgUrl, desc, id) {
+		const statement = `update photo set imgUrl = ?, description = ? where id = ?`
+		const result = await connection.execute(statement, [imgUrl, desc, id])
+		return result[0]
+	}
 }
 
 module.exports = new PhotoService()

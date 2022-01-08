@@ -34,6 +34,13 @@ class UserController {
 		const result = await service.getUserInfoById(userId)
 		ctx.body = result
 	}
+
+	async uploadAvatar(ctx, next) {
+		const { userId } = ctx.params
+		const { avatarUrl } = ctx.request.body
+		const result = await service.uploadAvatar(userId, avatarUrl)
+		ctx.body = result
+	}
 }
 
 module.exports = new UserController()

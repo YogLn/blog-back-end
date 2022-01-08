@@ -41,6 +41,8 @@ class ArticleService {
 				a.titleImg titleImg,
 				a.description description,
 				a.content content,
+				a.createAt createAt,
+				a.updateAt updateAt,
         (select count(*) from comment c where c.id = a.id) commmentNum,
 			IF
 				( COUNT( l.id ), JSON_ARRAYAGG( JSON_OBJECT( 'id', l.id, 'name', l.NAME, 'color', l.color )), NULL ) labels 
